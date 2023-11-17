@@ -6,10 +6,14 @@
 #
 # Example is take from:
 # https://saturncloud.io/blog/python-sudoku-wave-function-collapse-algorithm-implementation/
+# 
+# simply use: python simple_sudoky.py to run this program
+#
 
 iterations = 0
 
 def display_grid(grid):
+    '''Display the grid'''
     for i in range(9):
         if i in [3, 6]:
             print ('------+-------+------')
