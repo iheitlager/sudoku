@@ -70,7 +70,7 @@ def test_example1():
     assert m[0] == [0,0,0,0,0,0,0,9,2]
     assert m == example1_list
 
-
+    
 def test_example1_alt():
     m = reader.get_matrix(example1_alt)
     assert m == example1_list
