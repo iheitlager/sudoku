@@ -1,3 +1,5 @@
+[![Python package](https://github.com/iheitlager/sudoku/actions/workflows/python-package.yml/badge.svg)](https://github.com/iheitlager/sudoku/actions/workflows/python-package.yml)
+
 # Sudoku solver package
 
 This package contains a sudoku solver package.
