@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sudoku"
+version = "0.1.0.dev0"
+license = {file = "LICENSE"}
+
+description = "Various Sudoku solvers"
+authors = [{name = "Ilja Heitalger"}]
+maintainers = [
+    {name = "Ilja Heitlager", email="iheitlager@schubergphilis.com"},
+]
+requires-python = ">=3.11"
+readme = "README.md"
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: Implementation :: CPython',
+    'Topic :: Education',
+    'Operating System :: OS Independent',
+]
