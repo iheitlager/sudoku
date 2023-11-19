@@ -6,7 +6,7 @@ This code is currently supported for Python 3.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 3.11.x   | :white_check_mark: |
+| 3.11.x  | :white_check_mark: |
 
 ## Reporting a Vulnerability
 

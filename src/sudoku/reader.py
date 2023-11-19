@@ -22,10 +22,11 @@ def get_matrix(content):
 
     lines = []
     for line in content:
-        new_line = line.strip()    # Strip any leading or trailing whitespace
+        new_line = line.split("#")[0] # first remove comments starting with an #
+        new_line = new_line.strip()    # Strip any leading or trailing whitespace
         new_line = new_line.replace(".", "0") # dots are zero's
-        new_line = new_line.replace(",", "") # comma's are seperators
-        new_line = new_line.replace(" ", "") # spaces are seperators
+        new_line = new_line.replace(",", "") # comma's are separators
+        new_line = new_line.replace(" ", "") # spaces are separators
         if new_line:
             new_line = [int(x) for x in new_line]
             lines.append(new_line)
