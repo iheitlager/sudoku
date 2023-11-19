@@ -1,4 +1,4 @@
-[![python](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%iheitlager%2Fsudoku%2Fpyproject.toml)](https://www.python.org)
+[![python](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fiheitlager%2Fsudoku%2Fpyproject.toml)](https://www.python.org)
 
 [![Python package](https://github.com/iheitlager/sudoku/actions/workflows/python-package.yml/badge.svg)](https://github.com/iheitlager/sudoku/actions/workflows/python-package.yml)
 
