@@ -4,6 +4,6 @@ numpy==1.26.2
 pandas==2.1.3
 torch==2.1.1
 torchvision==0.16.1
-tqdm==4.66.1
-
+tqdm==4.6git 
 pytest==7.4.3
+flake8==6.1.0

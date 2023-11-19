@@ -11,18 +11,22 @@ def test_grid_exists():
 def test_is_valid():
     assert ss.is_valid(ss.sudoku_grid, 0, 0, 3)
 
+
 def test_find_empty_cell():
-    assert ss.find_empty_cell(ss.sudoku_grid)  == (0,0)
+    assert ss.find_empty_cell(ss.sudoku_grid) == (0, 0)
+
 
 def test_is_complete():
-    assert ss.is_complete(ss.sudoku_grid)  == False
+    assert not ss.is_complete(ss.sudoku_grid)
+
 
 def test_count_nonzero():
-    assert ss.count_nonzero(ss.sudoku_grid)  == 27
+    assert ss.count_nonzero(ss.sudoku_grid) == 27
+
 
 def test_solve():
     g = copy.deepcopy(ss.sudoku_grid)
-    assert ss.solve_sudoku(g) == True
-    assert ss.is_complete(g) == True
+    assert ss.solve_sudoku(g)
+    assert ss.is_complete(g)
     assert ss.count_nonzero(g) == 81
-    assert ss.find_empty_cell(g) == (None, None)    
+    assert ss.find_empty_cell(g) == (None, None)
