@@ -8,7 +8,7 @@ version = "0.1.0.dev0"
 license = {file = "LICENSE"}
 
 description = "Various Sudoku solvers"
-authors = [{name = "Ilja Heitalger"}]
+authors = [{name = "Ilja Heitlager"}]
 maintainers = [
     {name = "Ilja Heitlager", email="iheitlager@schubergphilis.com"},
 ]
