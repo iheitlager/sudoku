@@ -1,7 +1,7 @@
 # 
 # This file contains a simple standalone sudoku solver
 # deliberately it is without libraries and all self contained
-# this is a dept-first backtracking search algorithm
+# this is a depth-first backtracking search algorithm
 # it searches on first empty cell and tries first unique number in cell
 #
 # Example is take from:
@@ -91,10 +91,11 @@ sudoku_grid = [
     [0, 0, 0, 0, 0, 0, 4, 0, 0]
 ]
 
-print("Fill before rate: {0:d}".format(count_nonzero(sudoku_grid)))
-solve_sudoku(sudoku_grid)
-fr = count_nonzero(sudoku_grid)
-frp = fr / 81 * 100.0
-print("Fill after rate: {0:d} ({1:0.0f}%)".format(fr, frp))
-print("Iterations: {0:d}".format(iterations))
-display_grid(sudoku_grid)
+if __name__ == '__main__':
+    print("Fill before rate: {0:d}".format(count_nonzero(sudoku_grid)))
+    solve_sudoku(sudoku_grid)
+    fr = count_nonzero(sudoku_grid)
+    frp = fr / 81 * 100.0
+    print("Fill after rate: {0:d} ({1:0.0f}%)".format(fr, frp))
+    print("Iterations: {0:d}".format(iterations))
+    display_grid(sudoku_grid)
