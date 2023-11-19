@@ -2,6 +2,9 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+[options]
+packages = find:
+
 [project]
 name = "sudoku"
 version = "0.1.0.dev0"
