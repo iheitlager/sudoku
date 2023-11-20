@@ -49,7 +49,7 @@ module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+)|(manila-[a-z0-9_-]+))$
 # Don't require docstrings on tests.
 no-docstring-rgx=((__.*__)|([tT]est.*)|setUp|tearDown)$
 
-[FORMAT]
+[Format]
 max-line-length=100
 
 [Design]
