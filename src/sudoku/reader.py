@@ -20,7 +20,10 @@ def get_matrix(content):
     """
 
     if isinstance(content, str):    # split textblob into list of lines
-        content = content.splitlines()
+        if len(content) == 81 and '\n' not in content:    # assume a single line
+            content = [content[i:i+9] for i in range(0,81,9)]
+        else:                       # assume textblob with newlines
+            content = content.splitlines()
 
     lines = []
     for line in content:

@@ -27,6 +27,8 @@ example1_alt = """. . . .. ..92
 790000000
 """
 
+example1_str = '.......92...1...4.9..24...78..7..15.65.9.1.78.74..8..63...95..1.8...6...79.......'
+
 example2 = """# this is a **** level puzzle from parool 2023-09-19
 .6....19.
 ..261...4
@@ -76,12 +78,18 @@ def test_example1_alt():
     assert m == example1_list
 
 
+def test_example1_str():
+    assert len(example1_str) == 81
+    m = reader.get_matrix(example1_str)
+    assert m == example1_list
+
+
 def test_example2():
     m = reader.get_matrix(example2)
     assert m == example2_list
 
 
-def test_reader():
+def test_filereader():
     # it is all relative from where pytest starts
     m = reader.read_matrix("./data/example1.txt")
     assert m == example1_list
