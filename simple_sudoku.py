@@ -6,7 +6,7 @@
 # Example is take from:
 # https://saturncloud.io/blog/python-sudoku-wave-function-collapse-algorithm-implementation/
 #
-# simply use: python simple_sudoky.py to run this program
+# simply use: python simple_sudoku.py to run this program
 #
 
 iterations = 0

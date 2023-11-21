@@ -1,7 +1,6 @@
 from contextlib import redirect_stdout
 import io
 
-import sudoku as ss
 from sudoku.printer import display_grid
 
 sudoku_grid = [
