@@ -30,3 +30,8 @@ def test_solve():
     assert ss.is_complete(g)
     assert ss.count_nonzero(g) == 81
     assert ss.find_empty_cell(g) == (None, None)
+
+
+def test_main():
+    g = copy.deepcopy(ss.sudoku_grid)
+    assert ss.main(g)

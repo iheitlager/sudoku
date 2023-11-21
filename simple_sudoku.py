@@ -97,11 +97,16 @@ sudoku_grid = [
     [0, 0, 0, 0, 0, 0, 4, 0, 0]
 ]
 
-if __name__ == '__main__':
-    print("Fill before rate: {0:d}".format(count_nonzero(sudoku_grid)))
-    solve_sudoku(sudoku_grid)
-    fr = count_nonzero(sudoku_grid)
+def main(grid):
+    print("Fill before rate: {0:d}".format(count_nonzero(grid)))
+    res = solve_sudoku(grid)
+    fr = count_nonzero(grid)
     frp = fr / 81 * 100.0
     print("Fill after rate: {0:d} ({1:0.0f}%)".format(fr, frp))
     print("Iterations: {0:d}".format(iterations))
-    display_grid(sudoku_grid)
+    display_grid(grid)
+    return res
+
+
+if __name__ == '__main__':
+    main(sudoku_grid)
