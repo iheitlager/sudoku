@@ -21,3 +21,8 @@ def test_solve():
     assert ss.is_complete(g)
     assert ss.count_nonzero(g) == 81
     assert ss.find_empty_cell(g) == (None, None)
+    assert backtracking.iterations == 2522
+    # solved is solved
+    assert backtracking.solve(g)
+    assert backtracking.iterations == 2522
+    
