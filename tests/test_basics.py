@@ -12,6 +12,9 @@ sudoku_grid = [
     [0, 0, 0, 0, 0, 0, 4, 0, 0]
 ]
 
+def test_allgrid():
+    assert len(ss.all_grid) == 81
+
 
 def test_find_empty_cell():
     assert ss.find_empty_cell(sudoku_grid) == (0, 0)
@@ -23,3 +26,7 @@ def test_is_solved():
 
 def test_n_nonzero():
     assert ss.n_nonzero(sudoku_grid) == 27
+
+
+
+

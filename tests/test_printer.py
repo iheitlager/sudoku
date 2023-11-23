@@ -1,7 +1,7 @@
 from contextlib import redirect_stdout
 import io
 
-from sudoku.printer import display_grid, display_pylist
+from sudoku import printer
 
 sudoku_grid = [
     [0, 6, 0, 0, 0, 0, 1, 9, 0],
@@ -28,6 +28,8 @@ sudoku_string = '''0 6 0 | 0 0 0 | 1 9 0
 0 0 0 | 0 0 0 | 4 0 0 
 '''
 
+single_string = "060000190002610004701000000000070010006083000540060003080027039000400078000000400"
+
 python_string = '''sudoku_grid = [
     [0, 6, 0, 0, 0, 0, 1, 9, 0],
     [0, 0, 2, 6, 1, 0, 0, 0, 4],
@@ -44,7 +46,7 @@ python_string = '''sudoku_grid = [
 def test_display_grid():
     f = io.StringIO()
     with redirect_stdout(f):
-        display_grid(sudoku_grid)
+        printer.display_grid(sudoku_grid)
         out = f.getvalue()
         assert out == sudoku_string
 
@@ -52,6 +54,11 @@ def test_display_grid():
 def test_display_pygrid():
     f = io.StringIO()
     with redirect_stdout(f):
-        display_pylist(sudoku_grid)
+        printer.display_pylist(sudoku_grid)
         out = f.getvalue()
         assert out == python_string
+
+
+def test_as_single_string():
+    result = printer.as_string(sudoku_grid)
+    assert result == single_string

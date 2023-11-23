@@ -21,3 +21,14 @@ def display_pylist(grid):
         print("    [%s]," % ', '.join([str(x) for x in row]))
     print("    [%s]" % ', '.join([str(x) for x in grid[-1]]))
     print("]")
+
+
+def as_string(grid):
+    '''
+    Return as single line string
+    '''
+    result = ""
+    for row in grid:
+        for cell in row:
+            result += str(cell)
+    return result

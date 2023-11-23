@@ -1,8 +1,5 @@
 from sudoku.solvers import heuristic
 
-def test_allgrid():
-    assert len(heuristic.all_grid) == 81
-
 
 def test_all_columns():
     assert len(heuristic.all_columns) == 9
