@@ -23,3 +23,9 @@ def find_empty_cell(grid):
         if grid[i][j] == 0:
             return i, j
     return None, None
+
+
+def flatten(grid):
+    for (i, j) in all_grid:
+        if isinstance(grid[i][j], list) and len(grid[i][j]) == 1:
+            grid[i][j] = grid[i][j][0]
