@@ -30,8 +30,8 @@ solution_grid = [
 def test_solve():
     g = copy.deepcopy(problem_grid)
     assert csp.solve(g)
-    assert ss.is_complete(g)
-    assert ss.count_nonzero(g) == 81
+    assert ss.is_solved(g)
+    assert ss.n_nonzero(g) == 81
     assert ss.find_empty_cell(g) == (None, None)
     assert g == solution_grid
 

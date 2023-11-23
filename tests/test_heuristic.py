@@ -1,6 +1,5 @@
 import sudoku as ss
-from sudoku.solvers import backtracking
-import copy
+from sudoku.solvers import heuristic
 
 problem_grid = [
     [0, 6, 0, 0, 0, 0, 1, 9, 0],
@@ -26,15 +25,24 @@ solution_grid = [
     [2, 7, 5, 3, 9, 8, 4, 6, 1]
 ]
 
+def test_all_columns():
+    assert len(heuristic.all_columns) == 9
+
+
+def test_all_rows():
+    assert len(heuristic.all_rows) == 9
+
+
+def test_all_blocks():
+    assert len(heuristic.all_blocks) == 9
+
+
+def test_all_houses():
+    assert len(heuristic.all_houses) == 9+9+9
+
 def test_solve():
-    g = copy.deepcopy(problem_grid)
-    assert backtracking.solve(g)
+    g = heuristic.pencil_in_numbers(problem_grid)
+    assert heuristic.solve(g)
     assert ss.is_solved(g)
-    assert ss.n_nonzero(g) == 81
-    assert ss.find_empty_cell(g) == (None, None)
-    assert backtracking.iterations == 2522
-    # solved is solved
-    assert backtracking.solve(g)
-    assert backtracking.iterations == 2522
+    assert heuristic.cycles == 8
     assert g == solution_grid
-    

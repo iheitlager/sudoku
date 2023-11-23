@@ -1,9 +1,9 @@
-from sudoku import is_complete
+from sudoku import is_solved
 from constraint import * 
 
 
 def solve(sudoku_grid):
-    if is_complete(sudoku_grid):
+    if is_solved(sudoku_grid):
         return True
 
     problem = Problem(BacktrackingSolver())
