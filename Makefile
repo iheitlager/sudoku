@@ -31,6 +31,7 @@ dev_env: ## Install the dev env
 	@python -m pip install pytest
 	@python -m pip install coverage
 	@python -m pip install ipykernel
+	@python -m pip install -r requirements.txt
 
 virtualenv: $(VIRTUALENV)/sudoku/bin/activate
 	virtualenv $(VIRTUALENV)/sudoku

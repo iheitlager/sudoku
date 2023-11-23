@@ -1,23 +1,25 @@
-def count_nonzero(grid):
+# just get all coordinates
+all_grid =  [(i, j) for i in range(9) for j in range(9)]
+
+def n_nonzero(grid):
     n = 0
-    for row in range(9):
-        for col in range(9):
-            if grid[row][col] != 0:
-                n += 1
+    for (i, j) in all_grid:
+        if grid[i][j] != 0:
+            n += 1
     return n
 
 
-def is_complete(grid):
-    for row in range(9):
-        for col in range(9):
-            if grid[row][col] == 0:
-                return False
+def is_solved(grid):
+    for (i, j) in all_grid:
+        if isinstance(grid[i][j], list) and len(grid[i][j]) != 1:
+             return False
+        elif grid[i][j] == 0 :
+            return False
     return True
 
 
 def find_empty_cell(grid):
-    for row in range(9):
-        for col in range(9):
-            if grid[row][col] == 0:
-                return row, col
+    for (i, j) in all_grid:
+        if grid[i][j] == 0:
+            return i, j
     return None, None

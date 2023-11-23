@@ -29,8 +29,8 @@ solution_grid = [
 def test_solve():
     g = copy.deepcopy(problem_grid)
     assert backtracking.solve(g)
-    assert ss.is_complete(g)
-    assert ss.count_nonzero(g) == 81
+    assert ss.is_solved(g)
+    assert ss.n_nonzero(g) == 81
     assert ss.find_empty_cell(g) == (None, None)
     assert backtracking.iterations == 2522
     # solved is solved

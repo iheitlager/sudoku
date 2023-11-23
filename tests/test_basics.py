@@ -17,9 +17,9 @@ def test_find_empty_cell():
     assert ss.find_empty_cell(sudoku_grid) == (0, 0)
 
 
-def test_is_complete():
-    assert not ss.is_complete(sudoku_grid)
+def test_is_solved():
+    assert not ss.is_solved(sudoku_grid)
 
 
-def test_count_nonzero():
-    assert ss.count_nonzero(sudoku_grid) == 27
+def test_n_nonzero():
+    assert ss.n_nonzero(sudoku_grid) == 27
