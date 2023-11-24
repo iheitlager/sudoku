@@ -62,3 +62,11 @@ def test_display_pygrid():
 def test_as_single_string():
     result = printer.as_string(sudoku_grid)
     assert result == single_string
+
+
+def test_display_list():
+    f = io.StringIO()
+    with redirect_stdout(f):
+        printer.display_list(single_string)
+        out = f.getvalue()
+        assert out == sudoku_string

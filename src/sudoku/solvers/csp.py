@@ -1,5 +1,5 @@
 from sudoku import is_solved
-from constraint import * 
+from constraint import Problem, BacktrackingSolver, AllDifferentConstraint
 
 
 def solve(sudoku_grid):

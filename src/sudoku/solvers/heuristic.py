@@ -1,4 +1,6 @@
 # This is taken from https://github.com/gamescomputersplay/sudoku-solver
+# rewrote it in simple 2D matrix code
+
 from sudoku import all_grid, is_solved, flatten
 import copy
 
@@ -31,6 +33,7 @@ def pencil_in_numbers(puzzle):
     return result
 
 
+# Heuristic number 1
 def simple_elimination(grid):
     count = 0
     for group in all_houses:
@@ -43,6 +46,7 @@ def simple_elimination(grid):
     return count
 
 
+# Heuristic number 2
 def hidden_single(grid):
 
     def find_only_number_in_group(group, number):

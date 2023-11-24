@@ -29,3 +29,7 @@ def flatten(grid):
     for (i, j) in all_grid:
         if isinstance(grid[i][j], list) and len(grid[i][j]) == 1:
             grid[i][j] = grid[i][j][0]
+
+
+def to_list(grid):
+    return [x for row in grid for x in row]
