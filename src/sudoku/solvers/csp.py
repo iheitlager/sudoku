@@ -1,4 +1,4 @@
-from sudoku import is_solved
+from sudoku import is_solved, cell
 from constraint import Problem, BacktrackingSolver, AllDifferentConstraint
 
 
@@ -15,12 +15,12 @@ def solve(sudoku_grid):
                 problem.addVariable(i*9+j, [sudoku_grid[i][j]])
 
     for row in range(9):
-        problem.addConstraint(AllDifferentConstraint(),[row*9+i for i in range(9)])
+        problem.addConstraint(AllDifferentConstraint(),[cell(row, j) for j in range(9)])
     for col in range(9):
-        problem.addConstraint(AllDifferentConstraint(),[col+i*9 for i in range(9)])
+        problem.addConstraint(AllDifferentConstraint(),[cell(i, col) for i in range(9)])
     for row in range(0,9,3):
         for col in range(0,9,3):
-            problem.addConstraint(AllDifferentConstraint(),[(row+i)*9+col+j for i in range(3) for j in range(3)])
+            problem.addConstraint(AllDifferentConstraint(),[cell(i, j, row, col) for i in range(3) for j in range(3)])
 
     result = problem.getSolution()
     for i in range(9):

@@ -19,6 +19,14 @@ all_houses = all_columns+all_rows+all_blocks
 # just get all coordinates
 all_grid =  [(i, j) for i in range(9) for j in range(9)]
 
+
+def cell(i, j, o_i=0, o_j=0):
+    '''
+    calculates one dimensional index with offset
+    '''
+    return (i+o_i)*9+j+o_j
+
+
 def n_nonzero(grid):
     return sum(grid[i][j] != 0 for (i, j) in all_grid)
 

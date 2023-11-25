@@ -43,3 +43,15 @@ def test_n_nonzero():
 
 def test_to_list():
     assert ss.to_list(sudoku_grid) == sudoku_list
+
+
+def test_cell():
+    for i in range(9):
+        for j in range(9):
+            assert i*9+j == ss.cell(i, j)
+
+
+def test_cell_offset():
+    for row in range(0,9,3):
+        for col in range(0,9,3):
+            assert(cell(i, j, row, col) == (row+i)*9+col+j for i in range(3) for j in range(3))
