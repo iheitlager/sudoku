@@ -1,25 +1,9 @@
 # This is taken from https://github.com/gamescomputersplay/sudoku-solver
 # rewrote it in simple 2D matrix code
 
-from sudoku import all_grid, is_solved, flatten
+from sudoku import is_solved, flatten
+from sudoku import all_grid, all_columns, all_rows, all_blocks, all_houses
 import copy
-
-# Some helper lists to iterate through houses
-#################################################
-
-# return columns' lists of cells
-all_columns = [[(i, j) for j in range(9)] for i in range(9)]
-
-# same for rows
-all_rows = [[(i, j) for i in range(9)] for j in range(9)]
-
-# same for blocks
-# this list comprehension is unreadable, but quite cool!
-all_blocks = [[((i//3) * 3 + j//3, (i % 3)*3+j % 3)
-               for j in range(9)] for i in range(9)]
-
-# combine three
-all_houses = all_columns+all_rows+all_blocks
 
 
 # Adding candidates as list instead of zeros

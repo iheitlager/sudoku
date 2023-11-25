@@ -43,6 +43,7 @@ def as_string(grid):
     '''
     Return as single line string
     '''
+    # return "".join([str(cell) for row in grid for cell in row])
     result = ""
     for row in grid:
         for cell in row:

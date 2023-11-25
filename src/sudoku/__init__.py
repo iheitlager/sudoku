@@ -1,12 +1,26 @@
+# Some helper lists to iterate through houses
+# space over compute
+#################################################
+
+# return columns' lists of cells
+all_columns = [[(i, j) for j in range(9)] for i in range(9)]
+
+# same for rows
+all_rows = [[(i, j) for i in range(9)] for j in range(9)]
+
+# same for blocks
+# this list comprehension is unreadable, but quite cool!
+all_blocks = [[((i//3) * 3 + j//3, (i % 3)*3+j % 3)
+               for j in range(9)] for i in range(9)]
+
+# combine three
+all_houses = all_columns+all_rows+all_blocks
+
 # just get all coordinates
 all_grid =  [(i, j) for i in range(9) for j in range(9)]
 
 def n_nonzero(grid):
-    n = 0
-    for (i, j) in all_grid:
-        if grid[i][j] != 0:
-            n += 1
-    return n
+    return sum(grid[i][j] != 0 for (i, j) in all_grid)
 
 
 def is_solved(grid):
@@ -19,6 +33,7 @@ def is_solved(grid):
 
 
 def find_empty_cell(grid):
+    # return next(((i, j) for (i, j) in all_grid if grid[i][j] == 0), (None, None))
     for (i, j) in all_grid:
         if grid[i][j] == 0:
             return i, j
@@ -29,6 +44,12 @@ def flatten(grid):
     for (i, j) in all_grid:
         if isinstance(grid[i][j], list) and len(grid[i][j]) == 1:
             grid[i][j] = grid[i][j][0]
+
+
+def copy_fromlist(grid, ll):
+    for i in range(9):
+        for j in range(9):
+            grid[i][j] = ll[i*9+j]
 
 
 def to_list(grid):
