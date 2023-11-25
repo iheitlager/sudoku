@@ -44,5 +44,5 @@ def test_solve():
     g = heuristic.pencil_in_numbers(problem_grid)
     assert heuristic.solve(g)
     assert ss.is_solved(g)
-    assert heuristic.cycles == 8
+    assert heuristic.cycles == 7
     assert g == solution_grid

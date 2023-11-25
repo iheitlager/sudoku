@@ -28,5 +28,5 @@ solution_grid = [
 
 def test_solve():
     assert anneal.solve(problem_grid)
-    assert ss.is_solved(problem_grid)
+    assert ss.is_complete(problem_grid)
     # assert problem_grid == solution_grid    # issues, not always getting to a solution

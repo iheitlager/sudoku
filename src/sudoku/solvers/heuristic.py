@@ -1,7 +1,7 @@
 # This is taken from https://github.com/gamescomputersplay/sudoku-solver
 # rewrote it in simple 2D matrix code
 
-from sudoku import is_solved, flatten
+from sudoku import is_complete, flatten
 from sudoku import all_grid, all_columns, all_rows, all_blocks, all_houses
 import copy
 
@@ -63,7 +63,7 @@ def solve(grid):
     global cycles
 
     count = [0, 0]
-    while not is_solved(grid):
+    while not is_complete(grid):
         cycles += 1
         c0 = simple_elimination(grid)
         count[0] += c0

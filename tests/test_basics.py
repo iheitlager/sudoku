@@ -25,6 +25,18 @@ sudoku_list = [
 ]
 
 
+solution_grid = [
+    [4, 6, 8, 7, 3, 5, 1, 9, 2],
+    [3, 5, 2, 6, 1, 9, 7, 8, 4],
+    [7, 9, 1, 8, 4, 2, 3, 5, 6],
+    [8, 3, 9, 2, 7, 4, 6, 1, 5],
+    [1, 2, 6, 5, 8, 3, 9, 4, 7],
+    [5, 4, 7, 9, 6, 1, 8, 2, 3],
+    [6, 8, 4, 1, 2, 7, 5, 3, 9],
+    [9, 1, 3, 4, 5, 6, 2, 7, 8],
+    [2, 7, 5, 3, 9, 8, 4, 6, 1]
+]
+
 def test_allgrid():
     assert len(ss.all_grid) == 81
 
@@ -55,3 +67,12 @@ def test_cell_offset():
     for row in range(0,9,3):
         for col in range(0,9,3):
             assert(cell(i, j, row, col) == (row+i)*9+col+j for i in range(3) for j in range(3))
+
+
+def test_grid_score():
+    assert ss.grid_score(sudoku_grid) == 108
+    assert ss.grid_score(solution_grid) == 243
+
+
+def test_list_score():
+    assert ss.list_score(sudoku_list) == 108

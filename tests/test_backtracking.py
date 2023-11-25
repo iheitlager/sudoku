@@ -1,6 +1,5 @@
 import sudoku as ss
 from sudoku.solvers import backtracking
-import copy
 
 problem_grid = [
     [0, 6, 0, 0, 0, 0, 1, 9, 0],
@@ -27,12 +26,13 @@ solution_grid = [
 ]
 
 def test_solve():
-    g = copy.deepcopy(problem_grid)
+    g = problem_grid.copy()
     assert backtracking.solve(g)
     assert ss.is_solved(g)
     assert ss.n_nonzero(g) == 81
     assert ss.find_empty_cell(g) == (None, None)
     assert backtracking.iterations == 2522
+    assert ss.is_complete(g)
     # solved is solved
     assert backtracking.solve(g)
     assert backtracking.iterations == 2522
