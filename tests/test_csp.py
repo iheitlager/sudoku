@@ -1,5 +1,5 @@
 import sudoku as ss
-from sudoku.solvers import csp
+from sudoku.solvers import csp as solver
 
 problem_grid = [
     [0, 6, 0, 0, 0, 0, 1, 9, 0],
@@ -28,26 +28,26 @@ solution_grid = [
 
 def test_solve():
     g = problem_grid.copy()
-    assert csp.solve(g)
+    assert solver.solve(g)
     assert ss.is_solved(g)
     assert ss.n_nonzero(g) == 81
     assert ss.find_empty_cell(g) == (None, None)
     assert g == solution_grid
 
     # solved is solved
-    assert csp.solve(g)
+    assert solver.solve(g)
     assert g == solution_grid
  
 
 def test_solve2():
     g = problem_grid.copy()
-    assert csp.solve2(g)
+    assert solver.solve2(g)
     assert ss.is_solved(g)
     assert ss.n_nonzero(g) == 81
     assert ss.find_empty_cell(g) == (None, None)
     assert g == solution_grid
 
     # solved is solved
-    assert csp.solve(g)
+    assert solver.solve(g)
     assert g == solution_grid
  

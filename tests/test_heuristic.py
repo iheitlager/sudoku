@@ -1,5 +1,5 @@
 import sudoku as ss
-from sudoku.solvers import heuristic
+from sudoku.solvers import heuristic as solver
 
 problem_grid = [
     [0, 6, 0, 0, 0, 0, 1, 9, 0],
@@ -28,7 +28,7 @@ solution_grid = [
 
 def test_solve():
     g = problem_grid.copy()
-    assert heuristic.solve(g)
+    assert solver.solve(g)
     assert ss.is_solved(g)
-    assert heuristic.cycles == 7
+    assert solver.cycles == 7
     assert g == solution_grid

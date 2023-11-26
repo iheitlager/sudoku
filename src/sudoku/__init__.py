@@ -49,12 +49,12 @@ def is_solved(grid):
     return grid_score(grid) == 3*9*9
 
 
-def get_houses(i, j):
+def list_houses(i, j):
     return [all_rows[i], all_columns[j], all_blocks[i // 3 * 3 + j // 3]]
 
 
 def values_from_houses(i, j, grid):
-    return set(grid[k][m] for house in get_houses(i, j) for (k, m) in house if grid[k][m] != 0)
+    return set(grid[k][m] for house in list_houses(i, j) for (k, m) in house if grid[k][m] != 0)
 
 
 def column_score_list(n, ll):
@@ -75,6 +75,10 @@ def list_score(ll):
 
 def n_nonzero(grid):
     return sum(grid[i][j] != 0 for (i, j) in all_grid)
+
+
+def list_nonzero(grid):
+    return [(i, j) for (i, j) in all_grid if grid[i][j] != 0]
 
 
 def is_complete(grid):
@@ -106,5 +110,5 @@ def copy_fromlist(grid, ll):
             grid[i][j] = ll[cell(i, j)]
 
 
-def to_list(grid):
+def list_grid(grid):
     return [x for row in grid for x in row]

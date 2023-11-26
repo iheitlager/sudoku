@@ -25,6 +25,17 @@ sudoku_list = [
 ]
 
 
+nonzero_list = [(0, 1), (0, 6), (0, 7),
+ (1, 2), (1, 3), (1, 4), (1, 8),
+ (2, 0), (2, 2),
+ (3, 4), (3, 7),
+ (4, 2), (4, 4), (4, 5),
+ (5, 0), (5, 1), (5, 4), (5, 8),
+ (6, 1), (6, 4), (6, 5), (6, 7), (6, 8),
+ (7, 3), (7, 7), (7, 8),
+ (8, 6)]
+
+
 solution_grid = [
     [4, 6, 8, 7, 3, 5, 1, 9, 2],
     [3, 5, 2, 6, 1, 9, 7, 8, 4],
@@ -54,7 +65,12 @@ def test_n_nonzero():
 
 
 def test_to_list():
-    assert ss.to_list(sudoku_grid) == sudoku_list
+    assert ss.list_grid(sudoku_grid) == sudoku_list
+
+
+def test_list_nonzero():
+    for (i, j) in ss.list_nonzero(sudoku_grid):
+        assert (i, j) in nonzero_list
 
 
 def test_cell():

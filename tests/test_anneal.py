@@ -1,5 +1,5 @@
 import sudoku as ss
-from sudoku.solvers import anneal
+from sudoku.solvers import anneal as solver
 
 problem_grid = [
     [0, 6, 0, 0, 0, 0, 1, 9, 0],
@@ -27,6 +27,6 @@ solution_grid = [
 
 
 def test_solve():
-    assert anneal.solve(problem_grid)
+    assert solver.solve(problem_grid)
     assert ss.is_complete(problem_grid)
     # assert problem_grid == solution_grid    # issues, not always getting to a solution

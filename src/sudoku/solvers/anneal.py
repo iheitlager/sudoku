@@ -3,7 +3,7 @@
 
 import random
 from simanneal import Annealer
-from sudoku import to_list, all_blocks
+from sudoku import list_grid, all_blocks, list_nonzero
 from sudoku import column_score_list, row_score_list
 
 # FIXME: make sure we accept the grid instead of list
@@ -27,15 +27,20 @@ def initial_solution(problem):
 
 class Sudoku_Sq(Annealer):
     def __init__(self, grid):
-        problem = to_list(grid)
+        problem = list_grid(grid)
         self.problem = problem
+        self.indices = []
+        non_zeros = list_nonzero(grid)
+        for block in all_blocks:
+            self.indices.append([(i*9+j) for (i, j) in block if (i, j not in non_zeros)])
         state = initial_solution(problem)
         super().__init__(state)
     def move(self):
         """randomly swap two cells in a random square"""
-        block = random.randrange(9)
-        indices = [(i*9+j) for (i, j) in all_blocks[block] if self.problem[i*9+j] == 0]
-        m, n = random.sample(indices, 2)
+        # block = random.randrange(9)
+        # indices = [(i*9+j) for (i, j) in all_blocks[block] if self.problem[i*9+j] == 0]
+        # m, n = random.sample(indices, 2)
+        m, n = random.sample(self.indices[random.randrange(9)], 2)
         self.state[m], self.state[n] = self.state[n], self.state[m]
     def energy(self):
         """calculate the number of violations: assume all rows are OK"""
