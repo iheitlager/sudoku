@@ -66,7 +66,23 @@ def test_cell():
 def test_cell_offset():
     for row in range(0,9,3):
         for col in range(0,9,3):
-            assert(cell(i, j, row, col) == (row+i)*9+col+j for i in range(3) for j in range(3))
+            assert(ss.cell(i, j, row, col) == (row+i)*9+col+j for i in range(3) for j in range(3))
+
+
+def test_all_columns():
+    assert len(ss.all_columns) == 9
+
+
+def test_all_rows():
+    assert len(ss.all_rows) == 9
+
+
+def test_all_blocks():
+    assert len(ss.all_blocks) == 9
+
+
+def test_all_houses():
+    assert len(ss.all_houses) == 9+9+9
 
 
 def test_grid_score():

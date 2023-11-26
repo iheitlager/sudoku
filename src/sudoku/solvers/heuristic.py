@@ -2,13 +2,11 @@
 # rewrote it in simple 2D matrix code
 
 from sudoku import is_complete, flatten
-from sudoku import all_grid, all_columns, all_rows, all_blocks, all_houses
-import copy
-
+from sudoku import all_grid, all_houses
 
 # Adding candidates as list instead of zeros
 def pencil_in_numbers(puzzle):
-    result = copy.deepcopy(puzzle)
+    result = puzzle.copy()
     for (i, j) in all_grid:
         if puzzle[i][j] != 0:
             result[i][j] = [puzzle[i][j], ]

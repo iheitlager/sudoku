@@ -54,7 +54,7 @@ def get_houses(i, j):
 
 
 def values_from_houses(i, j, grid):
-    return set(grid[k][l] for house in get_houses(i, j) for (k, l) in house if grid[k][l] != 0)
+    return set(grid[k][m] for house in get_houses(i, j) for (k, m) in house if grid[k][m] != 0)
 
 
 def column_score_list(n, ll):

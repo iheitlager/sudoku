@@ -3,10 +3,8 @@
 
 import random
 from simanneal import Annealer
-from sudoku import to_list, all_blocks, cell;
-from sudoku.solvers import heuristic
-
-
+from sudoku import to_list, all_blocks
+from sudoku import column_score_list, row_score_list
 
 # FIXME: make sure we accept the grid instead of list
 def initial_solution(problem):
@@ -41,9 +39,7 @@ class Sudoku_Sq(Annealer):
         self.state[m], self.state[n] = self.state[n], self.state[m]
     def energy(self):
         """calculate the number of violations: assume all rows are OK"""
-        column_score = lambda n: -len(set(self.state[cell(i, n)] for i in range(9)))
-        row_score = lambda n: -len(set(self.state[cell(n, i)] for i in range(9)))
-        score = sum(column_score(n)+row_score(n) for n in range(9))
+        score = sum(column_score_list(n, self.state)+row_score_list(n, self.state) for n in range(9))
         if score == -2*9*9:
             self.user_exit = True # early quit, we found a solution
         return score
