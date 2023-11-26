@@ -27,7 +27,7 @@ solution_grid = [
 
 
 def test_solve():
-    g = heuristic.pencil_in_numbers(problem_grid)
+    g = problem_grid.copy()
     assert heuristic.solve(g)
     assert ss.is_solved(g)
     assert heuristic.cycles == 7

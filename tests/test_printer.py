@@ -30,6 +30,17 @@ sudoku_string = '''0 6 0 | 0 0 0 | 1 9 0
 
 single_string = "060000190002610004701000000000070010006083000540060003080027039000400078000000400"
 
+file_string ='''.6....19.
+..261...4
+7.1......
+....7..1.
+..6.83...
+54..6...3
+.8..27.39
+...4...78
+......4..
+'''
+
 python_string = '''sudoku_grid = [
     [0, 6, 0, 0, 0, 0, 1, 9, 0],
     [0, 0, 2, 6, 1, 0, 0, 0, 4],
@@ -70,3 +81,11 @@ def test_display_list():
         printer.display_list(single_string)
         out = f.getvalue()
         assert out == sudoku_string
+
+
+def test_display_file():
+    f = io.StringIO()
+    with redirect_stdout(f):
+        printer.display_file(sudoku_grid)
+        out = f.getvalue()
+        assert out == file_string
