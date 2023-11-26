@@ -1,28 +1,12 @@
 # This is taken from https://github.com/gamescomputersplay/sudoku-solver
-from sudoku import all_grid, is_solved, flatten
-import copy
+# rewrote it in simple 2D matrix code
 
-# Some helper lists to iterate through houses
-#################################################
-
-# return columns' lists of cells
-all_columns = [[(i, j) for j in range(9)] for i in range(9)]
-
-# same for rows
-all_rows = [[(i, j) for i in range(9)] for j in range(9)]
-
-# same for blocks
-# this list comprehension is unreadable, but quite cool!
-all_blocks = [[((i//3) * 3 + j//3, (i % 3)*3+j % 3)
-               for j in range(9)] for i in range(9)]
-
-# combine three
-all_houses = all_columns+all_rows+all_blocks
-
+from sudoku import is_complete, flatten
+from sudoku import all_grid, all_houses
 
 # Adding candidates as list instead of zeros
 def pencil_in_numbers(puzzle):
-    result = copy.deepcopy(puzzle)
+    result = puzzle.copy()
     for (i, j) in all_grid:
         if puzzle[i][j] != 0:
             result[i][j] = [puzzle[i][j], ]
@@ -31,6 +15,7 @@ def pencil_in_numbers(puzzle):
     return result
 
 
+# Heuristic number 1
 def simple_elimination(grid):
     count = 0
     for group in all_houses:
@@ -43,6 +28,7 @@ def simple_elimination(grid):
     return count
 
 
+# Heuristic number 2
 def hidden_single(grid):
 
     def find_only_number_in_group(group, number):
@@ -75,7 +61,7 @@ def solve(grid):
     global cycles
 
     count = [0, 0]
-    while not is_solved(grid):
+    while not is_complete(grid):
         cycles += 1
         c0 = simple_elimination(grid)
         count[0] += c0

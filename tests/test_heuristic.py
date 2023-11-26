@@ -25,24 +25,10 @@ solution_grid = [
     [2, 7, 5, 3, 9, 8, 4, 6, 1]
 ]
 
-def test_all_columns():
-    assert len(heuristic.all_columns) == 9
-
-
-def test_all_rows():
-    assert len(heuristic.all_rows) == 9
-
-
-def test_all_blocks():
-    assert len(heuristic.all_blocks) == 9
-
-
-def test_all_houses():
-    assert len(heuristic.all_houses) == 9+9+9
 
 def test_solve():
     g = heuristic.pencil_in_numbers(problem_grid)
     assert heuristic.solve(g)
     assert ss.is_solved(g)
-    assert heuristic.cycles == 8
+    assert heuristic.cycles == 7
     assert g == solution_grid

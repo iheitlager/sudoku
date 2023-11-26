@@ -1,33 +1,18 @@
-from sudoku import find_empty_cell, is_solved
+from sudoku import find_empty_cell, is_complete, values_from_houses
 
 iterations = 0
-
-def is_valid(grid, row, col, num):
-    for i in range(9):
-        if grid[row][i] == num or grid[i][col] == num:
-            return False
-
-    start_row = (row // 3) * 3
-    start_col = (col // 3) * 3
-    for i in range(start_row, start_row + 3):
-        for j in range(start_col, start_col + 3):
-            if grid[i][j] == num:
-                return False
-
-    return True
-
 
 def solve(grid):
     global iterations
     
-    if is_solved(grid):
+    if is_complete(grid):
         return True
     
     iterations += 1
 
     row, col = find_empty_cell(grid)
     for num in range(1, 10):
-        if is_valid(grid, row, col, num):
+         if num not in values_from_houses(row, col, grid):
             grid[row][col] = num
 
             if solve(grid):
