@@ -54,12 +54,14 @@ def hidden_single(grid):
 
 cycles = 0
 
-def solve(grid):
+def solve(problem):
     '''
     Heuristic solver
     '''
     global cycles
 
+    grid = pencil_in_numbers(problem)
+    
     count = [0, 0]
     while not is_complete(grid):
         cycles += 1

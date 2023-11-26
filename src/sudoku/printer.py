@@ -38,6 +38,14 @@ def display_pylist(grid):
     print("    [%s]" % ', '.join([str(x) for x in grid[-1]]))
     print("]")
 
+def display_file(grid, comment=None):
+    '''
+    Display the grid as a file readable
+    '''
+    if comment:
+        print("#"+comment)
+    for row in grid:
+        print("%s" % ''.join('.' if x== 0 else str(x) for x in row))
 
 def as_string(grid):
     '''
