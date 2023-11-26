@@ -1,8 +1,9 @@
 # This is taken from https://github.com/gamescomputersplay/sudoku-solver
 # rewrote it in simple 2D matrix code
 
-from sudoku import is_complete, flatten
-from sudoku import all_grid, all_houses
+from sudoku import is_complete, flatten, \
+    all_grid, all_houses, \
+    find_empty_cell, values_from_houses
 
 # Adding candidates as list instead of zeros
 def pencil_in_numbers(puzzle):
@@ -52,25 +53,102 @@ def hidden_single(grid):
             count += find_only_number_in_group(group, number)
     return count
 
+
+# Heuristic number 3 - Brute force backtracking
+def backtrack(grid):
+    if is_complete(grid):
+        return True
+
+    i, j = find_empty_cell(grid)
+    if (i, j) == (None, None):
+        return True
+
+    old_num = grid[i][j]
+    for num in old_num:
+        if num not in values_from_houses(i, j, grid):
+            grid[i][j] = [num]
+
+            if backtrack(grid):
+                return True
+
+            grid[i][j] = old_num
+
+    return False
+
+# 2. CSP
+# brute force CSP solution for each cell:
+# it covers hidden and naked pairs, triples, quads
+################################################
+def csp_list(house):
+
+    perm = []
+
+    # recurive func to get all permutations
+    def append_permutations(sofar):
+        nonlocal house
+        for n in house[len(sofar)]:
+            if len(sofar) == len(house) - 1:
+                perm.append(sofar + [n])
+            else:
+                append_permutations(sofar + [n])
+
+    append_permutations([])
+
+    # filter out impossibble ones
+    for i in range(len(perm))[::-1]:
+        if len(perm[i]) != len(set(perm[i])):
+            del perm[i]
+
+    # which values are still there?
+    out = []
+    for i in range(len(house)):
+        out.append([])
+        for n in range(10):
+            for p in perm:
+                if p[i] == n and n not in out[i]:
+                    out[i].append(n)
+    return out
+
+
+def csp(grid):
+    count = 0
+    for group in all_houses:
+        house = []
+        for (i, j) in group:
+            house.append(grid[i][j])
+        house_csp = csp_list(house)
+        if house_csp != house:
+            for n in range(len(group)):
+                (i, j) = group[n]
+                if grid[i][j] != house_csp[n]:
+                    count += len(grid[i][j]) - len(house_csp[n])
+                    grid[i][j] = house_csp[n]
+    return count
+
+
 cycles = 0
+counts = [0, 0, 0]
 
 def solve(problem):
     '''
     Heuristic solver
     '''
     global cycles
+    global counts
 
     grid = pencil_in_numbers(problem)
     
-    count = [0, 0]
     while not is_complete(grid):
         cycles += 1
         c0 = simple_elimination(grid)
-        count[0] += c0
+        counts[0] += c0
         c1 = hidden_single(grid)
-        count[1] += c1
+        counts[1] += c1
+        c2 = 0
+#        c2 = csp(grid)
+#        counts[2] += c2
 
-        if c0+c1 == 0:
+        if c0+c1+c2 == 0:
             return False
         
     flatten(grid)

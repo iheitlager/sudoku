@@ -43,8 +43,8 @@ def solve2(sudoku_grid):
         else:
             problem.addVariable(cell(i, j), [sudoku_grid[i][j]])
 
-    for block in all_houses:
-        problem.addConstraint(AllDifferentConstraint(), [cell(i, j) for (i, j) in block])
+    for group in all_houses:
+        problem.addConstraint(AllDifferentConstraint(), [cell(i, j) for (i, j) in group])
 
     result = problem.getSolution()
     copy_fromlist(sudoku_grid, result)

@@ -9,7 +9,10 @@ def display_grid(grid):
             print ('------+-------+------')
         print_line = ""
         for j in range(9):
-            print_line += str(grid[i][j])
+            if isinstance(grid[i][j], list) and len(grid[i][j]) == 1:
+                print_line += str(grid[i][j][0])
+            else:
+                print_line += str(grid[i][j])
             print_line += " | " if j in [2, 5] else " "
         print(print_line)
 
@@ -46,7 +49,10 @@ def display_file(grid, comment=None):
     if comment:
         print("#"+comment)
     for row in grid:
-        print(''.join('.' if x== 0 else str(x) for x in row))
+        try:
+            print(''.join(str(x[0]) if len(x)==1 else '.' for x in row))
+        except TypeError:
+            print(''.join(str(x) if x!=0 else '.' for x in row))
 
 
 def as_string(grid):

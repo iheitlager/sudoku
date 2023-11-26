@@ -9,15 +9,17 @@ def solve(grid):
         return True
     
     iterations += 1
+    if iterations % 500 == 0:
+        print('Iterations: ' + str(iterations))
 
-    row, col = find_empty_cell(grid)
+    i, j = find_empty_cell(grid)
     for num in range(1, 10):
-         if num not in values_from_houses(row, col, grid):
-            grid[row][col] = num
+         if num not in values_from_houses(i, j, grid):
+            grid[i][j] = num
 
             if solve(grid):
                 return True
 
-            grid[row][col] = 0
+            grid[i][j] = 0
 
     return False
