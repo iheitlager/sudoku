@@ -1,3 +1,6 @@
+# inspiration from here: # https://saturncloud.io/blog/python-sudoku-wave-function-collapse-algorithm-implementation/
+# Learn more about backtracking here https://www.geeksforgeeks.org/backtracking-algorithms/
+
 from sudoku import find_empty_cell, is_complete, values_from_houses
 
 iterations = 0

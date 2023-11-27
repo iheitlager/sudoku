@@ -33,7 +33,7 @@ def display_supergrid(grid):
                 if j in (2,5):
                     l += '| '
             print(l)
-    print("")
+    print("            |             |            ")
 
 
 
