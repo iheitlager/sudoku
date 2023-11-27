@@ -1,5 +1,6 @@
 # This is taken from https://github.com/gamescomputersplay/sudoku-solver
 # rewrote it in simple 2D matrix code
+# Check this https://sudoku.coach/en/learn/technique-overview
 
 from sudoku import is_complete, flatten, \
     all_grid, all_houses, \

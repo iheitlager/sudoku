@@ -17,6 +17,26 @@ def display_grid(grid):
         print(print_line)
 
 
+def display_supergrid(grid):
+    for i in range(9):
+        if i in [3, 6]:
+            print ('------------+-------------+------------')
+        else:
+            print ('            |             |            ')
+        for row in range(0,3):
+            l = ""
+            for j in range(9):
+                for col in range(0,3): 
+                    num = row*3+col+1
+                    l += str(num) if num in grid[i][j] else '.'
+                l += ' '
+                if j in (2,5):
+                    l += '| '
+            print(l)
+    print("")
+
+
+
 def display_list(ll):
     '''
     Display a list as grid

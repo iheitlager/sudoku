@@ -89,7 +89,10 @@ def list_score(ll):
 def n_nonzero(grid):
     try:
         return sum(grid[i][j][0] != 0 for (i, j) in all_grid if len(grid[i][j]) == 1)
-    except TypeError:
+    except (IndexError, TypeError):
+    # if isinstance(grid[0][0], list):
+    #     return sum(grid[i][j][0] != 0 for (i, j) in all_grid if len(grid[i][j]) == 1)
+    # else:
         return sum(grid[i][j] != 0 for (i, j) in all_grid)
 
 
