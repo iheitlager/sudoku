@@ -18,6 +18,8 @@ def pencil_in_numbers(puzzle):
 
 
 # Heuristic number 1
+# Eliminate singles from rows, columns and blocks
+# Automatically leads to Last Digits and Naked Singles
 def simple_elimination(grid):
     count = 0
     for group in all_houses:
@@ -146,8 +148,8 @@ def solve(problem):
         c1 = hidden_single(grid)
         counts[1] += c1
         c2 = 0
-#        c2 = csp(grid)
-#        counts[2] += c2
+        c2 = csp(grid)
+        counts[2] += c2
 
         if c0+c1+c2 == 0:
             return False

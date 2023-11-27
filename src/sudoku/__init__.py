@@ -8,12 +8,12 @@ all_columns = [[(i, j) for i in range(9)] for j in range(9)]
 # same for rows
 all_rows = [[(i, j) for j in range(9)] for i in range(9)]
 
-# same for blocks
+# same for blocks, also called boxesß
 # this list comprehension is unreadable, but quite cool!
 all_blocks = [[((i//3) * 3 + j//3, (i % 3)*3+j % 3)
                for j in range(9)] for i in range(9)]
 
-# combine three
+# combine three to houses, also called containers
 all_houses = all_columns+all_rows+all_blocks
 
 # just get all coordinates
@@ -135,6 +135,17 @@ def flatten(grid, to_grid=None):
                 to_grid[i][j] = grid[i][j][0]
             else:
                 to_grid[i][j] = 0
+
+
+def unflatten(grid, to_grid=None):
+    if not to_grid:
+        to_grid=grid
+    for (i, j) in all_grid:
+        if isinstance(grid[i][j], int):
+            if grid[i][j] >= 1:
+                to_grid[i][j] = [grid[i][j]]
+            else:
+                to_grid[i][j] = all_values
 
 
 def copy_fromlist(grid, ll):

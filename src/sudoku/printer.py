@@ -28,7 +28,10 @@ def display_supergrid(grid):
             for j in range(9):
                 for col in range(0,3): 
                     num = row*3+col+1
-                    l += str(num) if num in grid[i][j] else '.'
+                    if isinstance(grid[i][j], int):
+                        l += str(num) if num == grid[i][j] else '.'
+                    else:
+                        l += str(num) if num in grid[i][j] else '.'
                 l += ' '
                 if j in (2,5):
                     l += '| '
