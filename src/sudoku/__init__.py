@@ -2,13 +2,13 @@
 # space over compute
 #################################################
 
-# return columns' lists of cells
+# return columns' group of vertical cells
 all_columns = [[(i, j) for i in range(9)] for j in range(9)]
 
-# same for rows
+# same for rows groups of horizontal cells
 all_rows = [[(i, j) for j in range(9)] for i in range(9)]
 
-# same for blocks, also called boxesß
+# same for blocks, also called boxes
 # this list comprehension is unreadable, but quite cool!
 all_blocks = [[((i//3) * 3 + j//3, (i % 3)*3+j % 3)
                for j in range(9)] for i in range(9)]
@@ -16,9 +16,10 @@ all_blocks = [[((i//3) * 3 + j//3, (i % 3)*3+j % 3)
 # combine three to houses, also called containers
 all_houses = all_columns+all_rows+all_blocks
 
-# just get all coordinates
+# just get all coordinates for the grid
 all_grid =  [(i, j) for i in range(9) for j in range(9)]
 
+# get all candidate values
 all_values = [i+1 for i in range(9)]
 
 
@@ -31,21 +32,21 @@ def cell(i, j, o_i=0, o_j=0):
 
 def column_score(n, grid):
     try:
-        return len(set(grid[i][j] for (i, j) in all_columns[n]))
+        return len(set(grid[i][j] for (i, j) in all_columns[n] if grid[i][j] > 0))
     except TypeError:
         return len(set(grid[i][j][0] for (i, j) in all_columns[n] if len(grid[i][j]) == 1))
 
 
 def row_score(n, grid):
     try:
-        return len(set(grid[i][j] for (i, j) in all_rows[n]))
+        return len(set(grid[i][j] for (i, j) in all_rows[n] if grid[i][j] > 0))
     except TypeError:
         return len(set(grid[i][j][0] for (i, j) in all_rows[n] if len(grid[i][j]) == 1))
 
 
 def block_score(n, grid):
     try:
-        return len(set(grid[i][j] for (i, j) in all_blocks[n]))
+        return len(set(grid[i][j] for (i, j) in all_blocks[n] if grid[i][j] > 0))
     except TypeError:
         return len(set(grid[i][j][0] for (i, j) in all_blocks[n] if len(grid[i][j]) == 1))
 
@@ -59,6 +60,9 @@ def is_solved(grid):
 
 
 def list_houses(i, j):
+    '''
+    Get the horizontal, vertical and block groups from a cell
+    '''
     return [all_rows[i], all_columns[j], all_blocks[i // 3 * 3 + j // 3]]
 
 
@@ -71,15 +75,15 @@ def values_from_houses(i, j, grid):
 
 
 def column_score_list(n, ll):
-    return len(set(ll[cell(i, j)] for (i, j) in all_columns[n]))
+    return len(set(ll[cell(i, j)] for (i, j) in all_columns[n] if ll[cell(i, j)] > 0))
 
 
 def row_score_list(n, ll):
-    return len(set(ll[cell(i, j)] for (i, j) in all_rows[n]))
+    return len(set(ll[cell(i, j)] for (i, j) in all_rows[n] if ll[cell(i, j)] > 0))
 
 
 def block_score_list(n, ll):
-    return len(set(ll[cell(i, j)] for (i, j) in all_blocks[n]))
+    return len(set(ll[cell(i, j)] for (i, j) in all_blocks[n] if ll[cell(i, j)] > 0))
 
 
 def list_score(ll):
@@ -104,8 +108,27 @@ def list_nonzero(grid):
 
 
 def n_to_remove(grid):
-    return sum(len(grid[i][j])-1 for (i, j) in all_grid)
+    try:
+        return sum(len(grid[i][j])-1 for (i, j) in all_grid)
+    except TypeError:
+        return sum(9 for (i, j) in all_grid if grid[i][j] == 0)
 
+
+def n_range(grid):
+    try:
+        return list(set(grid[i][j][0] for (i, j) in all_grid if len(grid[i][j]) == 1))
+    except TypeError:
+        return list(set(grid[i][j] for (i, j) in all_grid if grid[i][j] != 0))
+
+def n_complete(grid):
+    ret = []
+    try:
+        t = [grid[i][j][0] for (i, j) in all_grid if len(grid[i][j]) == 1]
+    except TypeError:
+        t = [grid[i][j] for (i, j) in all_grid if grid[i][j] != 0]
+    for k in range(1,10):
+        ret.append((k, sum(x == k for x in t)))
+    return list(x for x, y in ret if y ==9)
 
 def is_complete(grid):
     for (i, j) in all_grid:

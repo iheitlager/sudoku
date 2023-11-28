@@ -102,9 +102,9 @@ def test_all_houses():
 
 
 def test_grid_score():
-    assert ss.grid_score(sudoku_grid) == 108
+    assert ss.grid_score(sudoku_grid) == 81
     assert ss.grid_score(solution_grid) == 243
 
 
 def test_list_score():
-    assert ss.list_score(sudoku_list) == 108
+    assert ss.list_score(sudoku_list) == 81

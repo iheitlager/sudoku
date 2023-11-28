@@ -31,5 +31,5 @@ def test_solve():
     g = copy.deepcopy(problem_grid)
     assert solver.solve(g)
     assert ss.is_solved(g)
-    assert solver.cycles == 7
+    assert solver.cycles == 3
     assert g == solution_grid

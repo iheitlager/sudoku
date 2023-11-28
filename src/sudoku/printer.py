@@ -1,4 +1,5 @@
 # This file contains the printer functions
+import sudoku
 
 def display_grid(grid):
     '''
@@ -24,18 +25,18 @@ def display_supergrid(grid):
         else:
             print ('            |             |            ')
         for row in range(0,3):
-            l = ""
+            line = ""
             for j in range(9):
                 for col in range(0,3): 
                     num = row*3+col+1
                     if isinstance(grid[i][j], int):
-                        l += str(num) if num == grid[i][j] else '.'
+                        line += str(num) if num == grid[i][j] else '.'
                     else:
-                        l += str(num) if num in grid[i][j] else '.'
-                l += ' '
+                        line += str(num) if num in grid[i][j] else '.'
+                line += ' '
                 if j in (2,5):
-                    l += '| '
-            print(l)
+                    line += '| '
+            print(line)
     print("            |             |            ")
 
 
@@ -65,7 +66,7 @@ def display_pylist(grid):
     print("]")
 
 
-def display_file(grid, comment=None):
+def display_file(grid, comment=None, sep='', zero='.'):
     '''
     Display the grid as a file readable
     '''
@@ -73,9 +74,9 @@ def display_file(grid, comment=None):
         print("#"+comment)
     for row in grid:
         try:
-            print(''.join(str(x[0]) if len(x)==1 else '.' for x in row))
+            print(sep.join(str(x[0]) if len(x)==1 else zero for x in row))
         except TypeError:
-            print(''.join(str(x) if x!=0 else '.' for x in row))
+            print(sep.join(str(x) if x!=0 else zero for x in row))
 
 
 def as_string(grid):
@@ -88,3 +89,12 @@ def as_string(grid):
         for cell in row:
             result += str(cell)
     return result
+
+
+def display_stats(grid):
+    nz = sudoku.n_nonzero(grid)
+    print("Filled in: %d, open: %d (sum=%d)" % (nz, 81-nz, 81))
+    print("Grid score: %d (max=%d)" % (sudoku.grid_score(grid), 3*9*9))
+    print("Values to eliminate: %d (max=%d)" % (sudoku.n_to_remove(grid), 9*9*9))
+    print("Range: " + str(sudoku.n_range(grid)))
+    print("Completed: " + str(sudoku.n_complete(grid)))
