@@ -18,7 +18,7 @@ def display_grid(grid):
         print(print_line)
 
 
-def display_supergrid(grid):
+def display_supergrid(grid, simple=False):
     for i in range(9):
         if i in [3, 6]:
             print ('------------+-------------+------------')
@@ -32,7 +32,8 @@ def display_supergrid(grid):
                     if isinstance(grid[i][j], int):
                         line += str(num) if num == grid[i][j] else '.'
                     else:
-                        line += str(num) if num in grid[i][j] else '.'
+                        zero = ' ' if len(grid[i][j]) == 1 and simple else '.'
+                        line += str(num) if num in grid[i][j] else zero
                 line += ' '
                 if j in (2,5):
                     line += '| '

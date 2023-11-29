@@ -73,6 +73,31 @@ def values_from_houses(i, j, grid):
         return set(grid[k][m][0] for house in list_houses(i, j) for (k, m) in house if len(grid[k][m]) == 1)
 
 
+def houses_from_cell(i, j):
+    return all_rows[i]+all_columns[j]+all_blocks[i // 3 * 3 + j // 3]
+
+def n_from_houses(i, j, grid):
+    return n_from_cells(houses_from_cell(i, j), grid)
+
+
+def n_from_cells(cells, grid):
+    '''
+    Retrieve all unique candidates from cells
+    '''
+    numbers = []
+    for (i, j) in cells:
+        numbers += grid[i][j]
+    return list(set(numbers))
+
+
+def remove_n_from_cells(n, cells, grid):
+    count = 0
+    for (i, j) in cells:
+        if n in grid[i][j]:
+            grid[i][j].remove(n)
+            count += 1
+    return count
+
 
 def column_score_list(n, ll):
     return len(set(ll[cell(i, j)] for (i, j) in all_columns[n] if ll[cell(i, j)] > 0))

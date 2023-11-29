@@ -3,7 +3,9 @@
 # Check this https://sudoku.coach/en/learn/technique-overview
 
 from sudoku import is_complete, flatten, \
-    all_grid, all_houses, \
+    all_grid, all_houses, all_blocks, all_rows, all_columns, \
+    all_values, \
+    n_from_cells, remove_n_from_cells, \
     find_empty_cell, values_from_houses
 
 # Adding candidates as list instead of zeros
@@ -56,8 +58,33 @@ def hidden_single(grid):
             count += find_only_number_in_group(group, number)
     return count
 
+#Heuristic number 3 - point pairs/triples
+def pointing_pairs(grid):
+    count = 0
+    for block in all_blocks:
+        for line in all_columns + all_rows:
+            sblock = set(block)
+            sline = set(line)
+            both = sblock.intersection(sline)
+            if len(both) == 0:
+                continue
+            only_b = sblock.difference(both)
+            only_l = sline.difference(both)
 
-# Heuristic number 3 - Brute force backtracking
+            n_both = n_from_cells(both, grid)
+            n_only_b = n_from_cells(only_b, grid)
+            n_only_l = n_from_cells(only_l, grid)
+
+            for i in all_values:
+                if i in n_both and i in n_only_b and i not in n_only_l:
+                    count += remove_n_from_cells(i, list(only_b), grid)
+                if i in n_both and i not in n_only_b and i in n_only_l:
+                    count += remove_n_from_cells(i, list(only_l), grid)
+
+    return count
+
+
+# Heuristic number 4 - Brute force backtracking
 def backtrack(grid):
     if is_complete(grid):
         return True
@@ -130,7 +157,7 @@ def csp(grid):
 
 
 cycles = 0
-counts = [0, 0, 0]
+counts = [0, 0, 0, 0]
 
 def solve(problem):
     '''
@@ -150,8 +177,10 @@ def solve(problem):
         c2 = 0
         c2 = csp(grid)
         counts[2] += c2
+        c3 = pointing_pairs(grid)
+        counts[2] += c3
 
-        if c0+c1+c2 == 0:
+        if c0+c1+c2+c3 == 0:
             return False
         
     flatten(grid)
