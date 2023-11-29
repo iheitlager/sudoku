@@ -80,14 +80,17 @@ def n_from_houses(i, j, grid):
     return n_from_cells(houses_from_cell(i, j), grid)
 
 
-def n_from_cells(cells, grid):
+def n_from_cells(cells, grid, unique=True):
     '''
-    Retrieve all unique candidates from cells
+    Retrieve all candidates from cells
     '''
     numbers = []
     for (i, j) in cells:
         numbers += grid[i][j]
-    return list(set(numbers))
+    if unique:
+        return list(set(numbers))
+    else:
+        return numbers
 
 
 def remove_n_from_cells(n, cells, grid):

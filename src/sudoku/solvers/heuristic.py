@@ -8,6 +8,8 @@ from sudoku import is_complete, flatten, \
     n_from_cells, remove_n_from_cells, \
     find_empty_cell, values_from_houses
 
+from sudoku.printer import display_stats
+
 # Adding candidates as list instead of zeros
 def pencil_in_numbers(puzzle):
     result = puzzle.copy()
@@ -84,26 +86,7 @@ def pointing_pairs(grid):
     return count
 
 
-# Heuristic number 4 - Brute force backtracking
-def backtrack(grid):
-    if is_complete(grid):
-        return True
 
-    i, j = find_empty_cell(grid)
-    if (i, j) == (None, None):
-        return True
-
-    old_num = grid[i][j]
-    for num in old_num:
-        if num not in values_from_houses(i, j, grid):
-            grid[i][j] = [num]
-
-            if backtrack(grid):
-                return True
-
-            grid[i][j] = old_num
-
-    return False
 
 # 2. CSP
 # brute force CSP solution for each cell:
@@ -156,10 +139,68 @@ def csp(grid):
     return count
 
 
-cycles = 0
-counts = [0, 0, 0, 0]
+def x_wing(grid):
+    count = 0
+    for h1 in range(0, 9):
+        for h2 in range(h1 + 1, 9):
+            for v1 in range(0, 9):
+                for v2 in range(v1 + 1, 9):
+                    hline1 = all_rows[h1]
+                    hline2 = all_rows[h2]
+                    vline1 = all_columns[v1]
+                    vline2 = all_columns[v2]
 
-def solve(problem):
+                    s_rows = set(hline1).union(set(hline2))
+                    s_cols = set(vline1).union(set(vline2))
+                    cross_4 = s_rows.intersection(s_cols)
+                    if len(cross_4) != 4:
+                        continue  # wrong cross-section
+                    only_row = s_rows.difference(cross_4)
+                    only_col = s_cols.difference(cross_4)
+
+                    # get the numbers from those region
+                    n_cross = n_from_cells(list(cross_4), grid, unique=False)
+                    n_only_row = n_from_cells(only_row, grid)
+                    n_only_col = n_from_cells(only_col, grid)
+
+                    # go through all numbers
+                    for i in all_values:
+                        if n_cross.count(i) == 4:
+                            if i in n_only_row and i not in n_only_col:
+                                count += \
+                                      remove_n_from_cells(i, list(only_row), grid)
+                            if i not in n_only_row and i in n_only_col:
+                                count += \
+                                      remove_n_from_cells(i, list(only_col), grid)
+    return count
+
+# No Heuristic - Brute force backtracking
+def backtrack(grid):
+    if is_complete(grid):
+        return True
+
+    i, j = find_empty_cell(grid)
+    if (i, j) == (None, None):
+        return True
+
+    old_num = grid[i][j]
+    for num in old_num:
+        if num not in values_from_houses(i, j, grid):
+            grid[i][j] = [num]
+
+            if backtrack(grid):
+                return True
+
+            grid[i][j] = old_num
+
+    return False
+
+
+cycles = 0
+counts = []
+solvers = [simple_elimination, hidden_single, pointing_pairs, csp, x_wing]
+
+def solve(problem, finalize=False, verbose=False):
     '''
     Heuristic solver
     '''
@@ -167,21 +208,41 @@ def solve(problem):
     global counts
 
     grid = pencil_in_numbers(problem)
-    
+    counts = [0]*len(solvers)
+    cycles = 0
+    res = 0
+
     while not is_complete(grid):
         cycles += 1
-        c0 = simple_elimination(grid)
-        counts[0] += c0
-        c1 = hidden_single(grid)
-        counts[1] += c1
-        c2 = 0
-        c2 = csp(grid)
-        counts[2] += c2
-        c3 = pointing_pairs(grid)
-        counts[2] += c3
+        r_step = simple_elimination(grid)
+        counts[0] += r_step
+        for i in range(1, len(solvers)):
+            if r_step == 0:
+                res = solvers[i](grid)
+                counts[i] += res
+                r_step += res
+            else:
+                break
 
-        if c0+c1+c2+c3 == 0:
-            return False
+        if r_step == 0:
+            break
+
+        if verbose:
+            print("Iteration: ", cycles)
+            print("Counts: ", counts)
+            display_stats(grid)
+            print()
         
-    flatten(grid)
+    if verbose:
+        for i in range(len(solvers)):
+            print("%s: %d" % (solvers[i].__name__, counts[i]))
+
+    if r_step == 0:
+        if finalize:
+            backtrack(problem)
+        else:
+            return False
+
+    # flatten(grid)
+
     return True
