@@ -1,2 +1,2 @@
-python-constraint2==2.0.0b4
+python-constraint2==2.0.0b5
 simanneal==0.5.0
